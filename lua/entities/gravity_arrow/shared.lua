@@ -30,3 +30,17 @@ ENT.Contact = "https://viral32111.com"
 
 ENT.Spawnable = true
 ENT.AdminOnly = false
+
+function ENT:SetupDataTables()
+
+	self:NetworkVar( "Bool", 0, "Enabled" )
+	self:NetworkVar( "Bool", 1, "AffectPlayers" )
+	self:NetworkVar( "Int", 0, "Force" )
+
+	if SERVER then
+		self:SetEnabled( true )
+		self:SetAffectPlayers( false )
+		self:SetForce( 600 )
+	end
+
+end

@@ -60,10 +60,28 @@ end
 
 function ENT:Think()
 
-	physenv.SetGravity( self:GetUp() * 600 )
+	if self:GetEnabled() then
+		local gravity = self:GetUp() * self:GetForce()
+		physenv.SetGravity( gravity )
+
+		--[[ https://github.com/conspiracy-servers/gravity-arrow/projects/1#card-41700985
+		if self:GetAffectPlayers() then
+			for index, player in ipairs( player.GetAll() ) do
+
+				local physicsObject = player:GetPhysicsObject()
+				if IsValid( physicsObject ) then
+					physicsObject:Wake()
+				end
+
+				player:SetVelocity( gravity )
+			end
+		end
+		]]
+	else
+		physenv.SetGravity( Vector( 0, 0, -600 ) )
+	end
 
 	self:NextThink( CurTime() + 0.1 )
-
 	return true
 
 end
