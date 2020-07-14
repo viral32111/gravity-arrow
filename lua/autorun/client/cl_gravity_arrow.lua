@@ -103,3 +103,16 @@ properties.Add( "gravityarrow", {
 	end
 
 } )
+
+net.Receive( "gravityArrowNotify", function( length )
+
+	-- Read the notification text
+	local message = net.ReadString()
+
+	-- Add the notification for 3 seconds
+	notification.AddLegacy( message, NOTIFY_ERROR, 3 )
+
+	-- Play a sound
+	surface.PlaySound("buttons/button10.wav")
+
+end )
